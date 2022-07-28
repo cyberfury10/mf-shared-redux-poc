@@ -1,7 +1,7 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin")
 
-const deps = require("./package.json").dependencies;
+const deps = require("./package.json").dependencies
 module.exports = {
   output: {
     publicPath: "http://localhost:4001/",
@@ -10,6 +10,8 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
+
+  devtool: "source-map",
 
   devServer: {
     port: 4001,
@@ -44,12 +46,10 @@ module.exports = {
       name: "app2",
       filename: "remoteEntry.js",
       remotes: {
-        app1: 'app1@http://localhost:4000/remoteEntry.js',
+        app1: "app1@http://localhost:4000/remoteEntry.js",
       },
       exposes: {
-        "./NameWithInjector": "./src/NameWithInjector.js",
-        "./NameWithoutInjector": "./src/NameInput.js"
-
+        "./NameInputApp2": "./src/components/NameInput.js",
       },
       shared: {
         ...deps,
@@ -67,4 +67,4 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
-};
+}
